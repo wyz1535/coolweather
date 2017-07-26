@@ -2,6 +2,8 @@ package com.leyifu.coolweather.util;
 
 import android.text.TextUtils;
 
+import com.google.gson.Gson;
+import com.leyifu.coolweather.bean.Weather;
 import com.leyifu.coolweather.db.City;
 import com.leyifu.coolweather.db.County;
 import com.leyifu.coolweather.db.Province;
@@ -26,7 +28,7 @@ public class Utility {
                     province.setProvinceCode(provinceObject.getInt("id"));
                     province.save();
                 }
-                    return true;
+                return true;
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -45,7 +47,7 @@ public class Utility {
                 city.setProvinceId(provinceid);
                 city.save();
             }
-                return true;
+            return true;
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -63,10 +65,22 @@ public class Utility {
                 county.setCityId(cityId);
                 county.save();
             }
-                return true;
+            return true;
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public static Weather handleWeahterResponse(String response) {
+        try {
+            JSONObject jsonObject = new JSONObject(response);
+            JSONArray jsonArray = jsonObject.getJSONArray("HeWeather");
+            String weatherContent = jsonArray.getJSONObject(0).toString();
+            return new Gson().fromJson(weatherContent,Weather.class);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
