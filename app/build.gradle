@@ -11,10 +11,37 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
+    productFlavors{
+        qihoo{
+            applicationId "com.leyifu.coolweather.qihoo"
+        }
+        baidu{
+            applicationId "com.leyifu.coolweather.baidu"
+        }
+    }
+
+// gradle 签名
+    signingConfigs{
+        config{
+//            storeFile file('C:/Users/xingxing/Desktop/01/wuxiaozhao.jks')
+//            storePassword 'sangea'
+//            keyAlias "wuxiaozhao"
+//            keyPassword "sangea"
+
+            storeFile file(KEY_PATH)
+            storePassword KEY_PASS
+            keyAlias ALIAS_NAME
+            keyPassword ALIAS_PASS
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            signingConfig signingConfigs.config
         }
     }
 }

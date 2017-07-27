@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.leyifu.coolweather.db.City;
 import com.leyifu.coolweather.db.County;
 import com.leyifu.coolweather.db.Province;
+import com.leyifu.coolweather.service.AutoUpdateService;
 import com.leyifu.coolweather.util.HttpUtil;
 import com.leyifu.coolweather.util.Utility;
 
@@ -215,6 +216,7 @@ public class ChooseAreaFragment extends Fragment {
     }
 
     private void showProgressDialog() {
+        startActivity(new Intent(getActivity(), AutoUpdateService.class));
         if (progressDialog != null) {
             progressDialog = new ProgressDialog(getActivity());
             progressDialog.setMessage("正在加载...");
